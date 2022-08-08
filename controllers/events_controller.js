@@ -49,8 +49,22 @@ events.get('/:id', async (req, res) => {
             where: { event_id: req.params.id }
         })
         res.status(200).json(foundEvent)
-    } catch (error) {
-        res.status(500).json(error)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
+
+// DELETE A SPECIFIC EVENT
+events.delete('/:id', async (req, res) => {
+    try {
+        const deleteEvent = await Event.findOne({
+            where: { event_id: req.params.id }
+        })
+        res.status(200).json({
+            message: `Successfully deleted ${deleteEvent} event(s)`
+        })
+    } catch (err) {
+        res.status(500).json(err)
     }
 })
 

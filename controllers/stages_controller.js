@@ -49,10 +49,23 @@ stages.get('/:id', async (req, res) => {
             where: { stage_id: req.params.id }
         })
         res.status(200).json(foundStage)
-    } catch (error) {
-        res.status(500).json(error)
+    } catch (err) {
+        res.status(500).json(err)
     }
 })
 
+// DELETE A SPECIFIC STAGE
+stages.delete('/:id', async (req, res) => {
+    try {
+        const deleteStage = await Stage.findOne({
+            where: { stage_id: req.params.id }
+        })
+        res.status(200).json({
+            message: `Successfully deleted ${deleteStage} stage(s)`
+        })
+    } catch (err) {
+        res.status(500).json(err)
+    }
+})
 
 module.exports = stages
